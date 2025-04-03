@@ -1,0 +1,11 @@
+rules:
+  - id: unusual-communication-protocol
+    pattern-regex: "\\b(DNS|ICMP|HTTPS?|FTP|SSH|SMTP|POP3|IMAP|Telnet|SNMP|SMB|NTP|P2P|UDP|TCP|TLS|VPN|RPC)\\b"
+    message: "Potential use of unusual communication protocol detected: Ensure this is intended and secure."
+    severity: WARNING
+    languages:
+      - javascript
+      - typescript
+    metadata:
+      category: security
+      cwe: "CWE-319: Cleartext Transmission of Sensitive Information"
