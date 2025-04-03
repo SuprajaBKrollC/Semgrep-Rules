@@ -1,0 +1,46 @@
+rules:
+  - id: xss-detection
+    message: "Potential Cross-Site Scripting (XSS) vulnerability detected."
+    severity: ERROR
+    languages:
+      - javascript
+    patterns:
+      - pattern-either:
+          - pattern: "document.write($USER_INPUT)"
+          - pattern: "element.innerHTML = $USER_INPUT"
+          - pattern: "element.outerHTML = $USER_INPUT"
+          - pattern: "element.insertAdjacentHTML($POS, $USER_INPUT)"
+          - pattern: "document.body.innerHTML = $USER_INPUT"
+          - pattern: "window.location = $USER_INPUT"
+          - pattern: "window.location.href = $USER_INPUT"
+          - pattern: "window.location.assign($USER_INPUT)"
+          - pattern: "window.location.replace($USER_INPUT)"
+          - pattern: "eval($USER_INPUT)"
+          - pattern: "setTimeout($USER_INPUT, ...)"
+          - pattern: "setInterval($USER_INPUT, ...)"
+          - pattern: "new Function($USER_INPUT)"
+          - pattern: "res.send($USER_INPUT)"
+          - pattern: "res.write($USER_INPUT)"
+          - pattern: "res.end($USER_INPUT)"
+          - pattern: "res.render($TEMPLATE, { $VAR: $USER_INPUT })"
+          - pattern: "$RESPONSE.setHeader('Content-Type', 'text/html'); $RESPONSE.end($USER_INPUT)"
+          - pattern: "$JQUERY.html($USER_INPUT)"
+          - pattern: "$JQUERY.append($USER_INPUT)"
+          - pattern: "$JQUERY.prepend($USER_INPUT)"
+          - pattern: "$JQUERY.after($USER_INPUT)"
+          - pattern: "$JQUERY.before($USER_INPUT)"
+          - pattern: "$JQUERY.replaceWith($USER_INPUT)"
+          - pattern: "$SCOPE.$VAR = $USER_INPUT"
+          - pattern: "$SCOPE.$VAR = $USER_INPUT; $ELEMENT.html($SCOPE.$VAR)"
+          - pattern: dangerouslySetInnerHTML={ ... }
+    metadata:
+      category: security
+      technology:
+        - javascript
+        - nodejs
+        - react
+        - express
+        - jquery
+      cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      references:
+        - "https://owasp.org/www-community/attacks/xss/"
