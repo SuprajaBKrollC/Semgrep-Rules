@@ -1,0 +1,13 @@
+rules:
+  - id: prototype-pollution
+    patterns:
+      - pattern: |
+          $OBJ[$KEY] = $VALUE
+      - pattern-inside: |
+          $KEY == "__proto__"
+      - pattern-not: |
+          $KEY != "__proto__"
+    message: "Prototype pollution detected. The object is being modified with '__proto__'."
+    severity: ERROR
+    languages:
+      - javascript
