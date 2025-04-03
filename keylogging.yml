@@ -1,0 +1,17 @@
+rules:
+  - id: suspicious-client-side-activity
+    patterns:
+      - pattern-regex: "(addEventListener\\(['\"](keydown|keypress|keyup)['\"]|document\\.(addEventListener|createElement\\(['\"]input['\"]\\))|window\\.add
+EventListener|fetch\\(|XMLHttpRequest\\(|\\.send\\(|hidden\\s*[:=]\\s*['\"]\\s*true\\s*['\"]|createElement\\(\\s*['\"]script['\"]\\s*\\)|input\\(\\s*['\"]pa
+ssword['\"]\\))"
+    message: "Potential client-side security issue detected: keylogging, hidden fields, network requests, or script injections."
+    severity: WARNING
+    languages:
+      - javascript
+    metadata:
+      category: security
+      cwe:
+        - "CWE-319: Cleartext Transmission of Sensitive Information"
+        - "CWE-523: Unprotected Transport of Credentials"
+        - "CWE-200: Exposure of Sensitive Information"
+        - "CWE-798: Hardcoded Credentials"
