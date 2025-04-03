@@ -1,0 +1,16 @@
+rules:
+  - id: unexpected-third-party-imports
+    patterns:
+      - pattern-either:
+          - pattern: require($PACKAGE)
+          - pattern: import $X from $PACKAGE
+          - pattern: import * as $X from $PACKAGE
+          - pattern: import { $X } from $PACKAGE
+    message: "Unexpected third-party module detected: Ensure this dependency is approved and listed in package.json."
+    severity: WARNING
+    languages:
+      - javascript
+      - typescript
+    metadata:
+      category: security
+      cwe: "CWE-829: Inclusion of Functionality from Untrusted Control Sphere"
