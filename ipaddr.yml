@@ -1,0 +1,12 @@
+rules:
+  - id: hardcoded-ip-address
+    pattern-regex: "\\b(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9
+]|1?[0-9][0-9]?)\\b|\\b([a-fA-F0-9:]+:+)+[a-fA-F0-9]+\\b"
+    message: "Potential hardcoded IP address detected. Consider making it configurable."
+    severity: WARNING
+    languages:
+      - javascript
+      - typescript
+    metadata:
+      category: security
+      cwe: "CWE-798: Use of Hardcoded Credentials"
