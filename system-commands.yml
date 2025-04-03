@@ -1,0 +1,19 @@
+rules:
+  - id: remote-code-execution
+    message: "Remote code execution risk detected. User-controlled input is passed to dangerous functions."
+    severity: ERROR
+    languages:
+      - javascript
+    patterns:
+      - pattern: |
+          const $MODULE = require($MODULE_NAME)
+      - pattern: |
+          const $FUNC = require('child_process').exec
+      - pattern-inside: |
+          $MODULE_NAME == 'child_process' || $MODULE_NAME == 'fs' || $MODULE_NAME == 'os'
+      - pattern: |
+          exec($USER_INPUT, ...)
+      - pattern-inside: |
+          $USER_INPUT != ''
+      - pattern-not: |
+          $USER_INPUT == 'safe_value'
